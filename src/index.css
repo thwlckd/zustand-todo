@@ -105,3 +105,7 @@ meter {
 :where(dialog:modal) {
   all: revert;
 }
+
+body {
+  background: url('/zustand.png') center;
+}

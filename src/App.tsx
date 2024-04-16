@@ -1,5 +1,16 @@
+import Layout from './components/Layout';
+import Input from './components/Input';
+import TodoList from './components/TodoList';
+import Navigation from './components/Navigation';
+
 const App = () => {
-  return <div className="">hi</div>;
+  return (
+    <Layout>
+      <Input />
+      <Navigation />
+      <TodoList />
+    </Layout>
+  );
 };
 
 export default App;
