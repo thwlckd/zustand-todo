@@ -1,14 +1,31 @@
-import { useState } from 'react';
 import styled from 'styled-components';
+import { Todo } from '../types/todo';
+import { useTodoActions } from '../store/useTodoStore';
 
-const TodoItem = () => {
-  const [isChecked, setIsChecked] = useState(false);
+interface TodoItemProps {
+  todo: Todo;
+}
+
+const TodoItem = ({ todo }: TodoItemProps) => {
+  const { toggleTodo, deleteTodo } = useTodoActions();
+
+  const handleToggleTodo = () => {
+    toggleTodo(todo.id);
+  };
+
+  const handleDeleteTodo = () => {
+    deleteTodo(todo.id);
+  };
 
   return (
     <ItemWrapper>
-      <CheckBox type="checkbox" onClick={() => setIsChecked((prev) => !prev)} />
-      <TodoContent $isChecked={isChecked}>todo</TodoContent>
-      <DeleteButton>DELETE</DeleteButton>
+      <CheckBox
+        type="checkbox"
+        onClick={handleToggleTodo}
+        defaultChecked={todo.isDone}
+      />
+      <TodoContent $isChecked={todo.isDone}>{todo.content}</TodoContent>
+      <DeleteButton onClick={handleDeleteTodo}>DELETE</DeleteButton>
     </ItemWrapper>
   );
 };

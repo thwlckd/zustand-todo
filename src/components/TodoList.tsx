@@ -1,11 +1,15 @@
-import { Children } from 'react';
 import styled from 'styled-components';
+import { useTodoList } from '../store/useTodoStore';
 import TodoItem from './TodoItem';
 
 const TodoList = () => {
+  const todoList = useTodoList();
+
   return (
     <TodoListWrappper>
-      {Children.toArray(Array.from({ length: 3 }).map(() => <TodoItem />))}
+      {todoList.map((todo) => (
+        <TodoItem key={todo.id} todo={todo} />
+      ))}
     </TodoListWrappper>
   );
 };
