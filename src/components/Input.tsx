@@ -1,7 +1,27 @@
+import { KeyboardEvent, useRef } from 'react';
 import styled from 'styled-components';
+import { useTodoActions } from '../store/useTodoStore';
 
 const Input = () => {
-  return <InputWrapper placeholder="Todo + Enter" />;
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { addTodo } = useTodoActions();
+
+  const handleAddTodo = (e: KeyboardEvent) => {
+    if (e.key !== 'Enter') return;
+    if (!inputRef.current || inputRef.current.value === '') return;
+
+    addTodo(inputRef.current.value);
+
+    inputRef.current.value = '';
+  };
+
+  return (
+    <InputWrapper
+      placeholder="Todo + Enter"
+      onKeyDown={handleAddTodo}
+      ref={inputRef}
+    />
+  );
 };
 
 export default Input;
