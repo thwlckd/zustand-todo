@@ -1,10 +1,15 @@
-import { Children, useState } from 'react';
+import { Children } from 'react';
 import styled from 'styled-components';
+import {
+  useActiveSection,
+  useNavigationActions,
+} from '../store/useNavigationStore';
 
-const TABS = ['ALL', 'ACTIVE', 'COMPLETE'];
+const TABS = ['ALL', 'ACTIVE', 'DONE'];
 
 const Navigation = () => {
-  const [activeTab, setActiveTab] = useState('ALL');
+  const activeSection = useActiveSection();
+  const { changeActiveSection } = useNavigationActions();
 
   return (
     <NavigationWrpper>
@@ -12,8 +17,8 @@ const Navigation = () => {
         TABS.map((tab) => (
           <li>
             <TabButton
-              onClick={() => setActiveTab(tab)}
-              $isActive={tab === activeTab}
+              onClick={() => changeActiveSection(tab)}
+              $isActive={tab === activeSection}
             >
               {tab}
             </TabButton>

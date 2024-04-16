@@ -8,7 +8,7 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   return (
     <LayoutWrapper>
-      <Header>Zustand Todos</Header>
+      <Header>Zustand Todo List</Header>
       {children}
       <Footer>
         <p>
@@ -37,7 +37,7 @@ export default Layout;
 const Header = styled.header`
   padding: 50px 0;
   color: #2c4251;
-  font-size: 48px;
+  font-size: 40px;
 `;
 
 const Footer = styled.footer`
