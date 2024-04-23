@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { Todo } from '../types/todo';
-import { persist } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 
 interface State {
   todoList: Todo[];
@@ -13,34 +13,36 @@ interface Action {
 }
 
 const useTodoStore = create(
-  persist<State & Action>(
-    (set) => ({
-      todoList: [],
-      addTodo: (content) =>
-        set(({ todoList }) => ({
-          todoList: [
-            ...todoList,
-            {
-              id: crypto.randomUUID(),
-              content,
-              isDone: false,
-            },
-          ],
-        })),
-      toggleTodo: (id) =>
-        set(({ todoList }) => ({
-          todoList: todoList.map((todo) =>
-            todo.id === id ? { ...todo, isDone: !todo.isDone } : todo,
-          ),
-        })),
-      deleteTodo: (id) =>
-        set(({ todoList }) => ({
-          todoList: todoList.filter((todo) => todo.id !== id),
-        })),
-    }),
-    {
-      name: 'zustand-todo-list',
-    },
+  devtools(
+    persist<State & Action>(
+      (set) => ({
+        todoList: [],
+        addTodo: (content) =>
+          set(({ todoList }) => ({
+            todoList: [
+              ...todoList,
+              {
+                id: crypto.randomUUID(),
+                content,
+                isDone: false,
+              },
+            ],
+          })),
+        toggleTodo: (id) =>
+          set(({ todoList }) => ({
+            todoList: todoList.map((todo) =>
+              todo.id === id ? { ...todo, isDone: !todo.isDone } : todo,
+            ),
+          })),
+        deleteTodo: (id) =>
+          set(({ todoList }) => ({
+            todoList: todoList.filter((todo) => todo.id !== id),
+          })),
+      }),
+      {
+        name: 'zustand-todo-list',
+      },
+    ),
   ),
 );
 
